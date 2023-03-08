@@ -29,8 +29,59 @@
         </ul>
     </nav>
     {{$slot}}
-    <footer>
-      
+    <footer class="bg-chocolate text-white static">
+      <h2 class="text-center p-4 text-xl underline underline-offset-8">Horaires d'ouverture</h2>
+      <ul class="flex flex-col items-center">
+        <div class="flex py-3">
+          <li class="font-bold self-center">Lundi</li>
+          <div class="text-gold">
+            <li>12:00 - 14:00</li>
+            <li>19:00 - 22:00</li>
+          </div>
+        </div>
+        <div class="flex py-3">
+          <li class="font-bold self-center pr-5">Mardi</li>
+          <div class="text-gold pl-5">
+            <li>12:00 - 14:00</li>
+            <li>19:00 - 22:00</li>
+          </div>
+        </div>
+        <div class="flex py-3">
+          <li class="font-bold self-center pr-5">Mercredi</li>
+          <div class="text-gold pl-5">
+            <li>12:00 - 14:00</li>
+            <li>19:00 - 22:00</li>
+          </div>
+        </div>
+        <div class="flex py-3">
+          <li class="font-bold self-center pr-5">Jeudi</li>
+          <div class="text-gold pl-5">
+            <li>12:00 - 14:00</li>
+            <li>19:00 - 22:00</li>
+          </div>
+        </div>
+        <div class="flex py-3">
+          <li class="font-bold self-center pr-5">Vendredi</li>
+          <div class="text-gold pl-5">
+            <li>12:00 - 14:00</li>
+            <li>19:00 - 22:00</li>
+          </div>
+        </div>
+        <div class="flex py-3">
+          <li class="font-bold self-center pr-5">Samedi</li>
+          <div class="text-gold pl-5">
+            <li>12:00 - 14:00</li>
+            <li>19:00 - 22:00</li>
+          </div>
+        </div>
+        <div class="flex py-3">
+          <li class="font-bold self-center pr-5">Dimanche</li>
+          <div class="text-gold pl-5">
+            <li>Fermé</li>
+          </div>
+        </div>
+      </ul>
+      <p class="font-logo text-center p-3">© Le Quai Antique</p>
     </footer>
 </body>
 </html>
