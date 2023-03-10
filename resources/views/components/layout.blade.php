@@ -12,7 +12,7 @@
     @vite('resources/js/toggle-menu.js')
 </head>
 <body>
-    <nav class="sm:flex sm:justify-between p-5 shadow-md">
+    <nav class="sm:flex sm:justify-between p-5 shadow-md z-40">
         <div class="flex justify-between">
           <h1 class="lg:text-5xl md:text-4xl font-logo self-center text-3xl text-gold"><a href="#">Le Quai Antique</a></h1>
           <button class="sm:hidden" id="menu-btn">
@@ -23,64 +23,14 @@
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Accueil</a></li>
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Carte</a></li>
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Horaires</a></li>
-          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Réserver</a></li>
+          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold font-bold"><a href="#">Réserver</a></li>
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg text-red-400 hover:text-red-300"><a href="#">Se connecter</a></li>
-          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg text-red-400 hover:text-red-300 hidden"><a href="#">ADMIN</a></li>
         </ul>
     </nav>
     {{$slot}}
     <footer class="bg-chocolate text-white static">
       <h2 class="text-center p-4 text-xl underline underline-offset-8">Horaires d'ouverture</h2>
-      <ul class="flex flex-col items-center">
-        <div class="flex py-3">
-          <li class="font-bold self-center">Lundi</li>
-          <div class="text-gold">
-            <li>12:00 - 14:00</li>
-            <li>19:00 - 22:00</li>
-          </div>
-        </div>
-        <div class="flex py-3">
-          <li class="font-bold self-center pr-5">Mardi</li>
-          <div class="text-gold pl-5">
-            <li>12:00 - 14:00</li>
-            <li>19:00 - 22:00</li>
-          </div>
-        </div>
-        <div class="flex py-3">
-          <li class="font-bold self-center pr-5">Mercredi</li>
-          <div class="text-gold pl-5">
-            <li>12:00 - 14:00</li>
-            <li>19:00 - 22:00</li>
-          </div>
-        </div>
-        <div class="flex py-3">
-          <li class="font-bold self-center pr-5">Jeudi</li>
-          <div class="text-gold pl-5">
-            <li>12:00 - 14:00</li>
-            <li>19:00 - 22:00</li>
-          </div>
-        </div>
-        <div class="flex py-3">
-          <li class="font-bold self-center pr-5">Vendredi</li>
-          <div class="text-gold pl-5">
-            <li>12:00 - 14:00</li>
-            <li>19:00 - 22:00</li>
-          </div>
-        </div>
-        <div class="flex py-3">
-          <li class="font-bold self-center pr-5">Samedi</li>
-          <div class="text-gold pl-5">
-            <li>12:00 - 14:00</li>
-            <li>19:00 - 22:00</li>
-          </div>
-        </div>
-        <div class="flex py-3">
-          <li class="font-bold self-center pr-5">Dimanche</li>
-          <div class="text-gold pl-5">
-            <li>Fermé</li>
-          </div>
-        </div>
-      </ul>
+      {{-- Horaires à mettre ici avec un foreach --}}
       <p class="font-logo text-center p-3">© Le Quai Antique</p>
     </footer>
 </body>
