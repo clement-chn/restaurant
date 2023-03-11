@@ -24,7 +24,18 @@
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Carte</a></li>
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Horaires</a></li>
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold font-bold"><a href="#">Réserver</a></li>
-          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg text-red-400 hover:text-red-300"><a href="#">Se connecter</a></li>
+          @auth
+          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg text-red-400 hover:text-red-300">
+            <form method="POST" action="/logout">
+            @csrf
+            <button type="submit">
+              Se déconnecter
+            </button>
+            </form>
+          </li>
+          @else
+          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg text-red-400 hover:text-red-300"><a href="/register">Se connecter</a></li>
+          @endauth
         </ul>
     </nav>
     {{$slot}}
