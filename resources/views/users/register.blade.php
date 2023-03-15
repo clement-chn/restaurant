@@ -35,7 +35,7 @@
 
             <div class="mb-6">
                 <label for="number" class="inline-block text-lg mb-2">Nombre de personnes par défaut</label>
-                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="number" value="{{old('number')}}">
+                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="number" value="{{old('number')}}" min="1">
 
                 @error('number') 
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
