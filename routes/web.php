@@ -43,5 +43,5 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 // -----------RESERVATION-------------------------------------
 
 Route::get('/reservation', [ScheduleController::class, 'index']);
-Route::get('/reservation/newdate', [ScheduleController::class, 'newdate']);
+Route::get('/reservation/{selectedDate}', [ScheduleController::class, 'newdate']);
 

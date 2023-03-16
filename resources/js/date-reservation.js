@@ -20,20 +20,62 @@ lastDayOfTheYear = yyyy + '-12-31';
 document.getElementById('datefield').setAttribute('min', today);
 document.getElementById('datefield').setAttribute('max', lastDayOfTheYear);
 
-// Changement de date
 document.getElementById('datefield').addEventListener('change', function() {
-    // Récupérer la date sélectionnée
     let selectedDate = this.value;
-    console.log(selectedDate);
     
-    // Envoyer une requête AJAX au serveur pour récupérer les horaires
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/reservation/newdate' + selectedDate);
+    xhr.open('GET', '/reservation/' + selectedDate);
     xhr.onload = function() {
         if (xhr.status === 200) {
-            // Mettre à jour l'affichage des horaires
-            document.getElementById('datefield').innerHTML = xhr.responseText;
+            var data = JSON.parse(xhr.responseText);
+
+            function updateScheduleButtons(Schedules, idPrefix) {
+                const ScheduleButtons = document.querySelectorAll(`[id^="${idPrefix}"]`);
+
+                ScheduleButtons.forEach((button) => {
+                  button.textContent = '';
+                });
+              
+                if (ScheduleButtons.length < Schedules.length) {
+                  for (let i = ScheduleButtons.length; i < Schedules.length; i++) {
+                    const button = document.createElement('button');
+                    button.name = 'time';
+                    button.value = Schedules[i];
+                    button.className = 'bg-gold w-16 p-3 text-white m-2 rounded';
+                    button.textContent = Schedules[i];
+                    button.id = `${idPrefix}${i}`;
+                    const divToAdd = document.querySelector(`[id^="${idPrefix}"]`).parentNode;
+                    divToAdd.appendChild(button);
+                  }
+                } else if (ScheduleButtons.length > Schedules.length) {
+                  for (let i = ScheduleButtons.length-1; i >= Schedules.length; i--) {
+                    ScheduleButtons[i].remove();
+                  }
+                }
+    
+                Schedules.sort();
+
+                ScheduleButtons.forEach((button, index) => {
+                  button.textContent = Schedules[index];
+                });
+            }
+
+            updateScheduleButtons(data['eveningSchedules'], 'evening-schedule-');
+            updateScheduleButtons(data['noonSchedules'], 'noon-schedule-');
+
+            if(data['dontDisplay']) {
+                document.getElementById('schedule-display').classList.add("hidden");
+                if (!document.getElementById('message').classList.contains("hidden")) {
+                } else {
+                    document.getElementById('message').classList.remove("hidden");
+                }
+            } else {
+                document.getElementById('schedule-display').classList.remove("hidden");
+                document.getElementById('message').classList.add("hidden");
+            }
         }
     };
     xhr.send();
 });
+
+

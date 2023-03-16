@@ -35,24 +35,53 @@
                 <label for="date" class="inline-block text-lg mb-2">Date de réservation</label>
                 <input type="date" class="border border-gray-200 rounded p-2 w-full" name="date" min="" max="" id="datefield" value="{{$todayFullDate}}">
 
-                {{-- Dans min, mettre date d'aujourd'hui --}}
-
                 @error('date') 
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
 
-            <div class="mb-6">
-                <label for="time" class="inline-block text-lg mb-2">Heure</label><br>
-                @foreach ($noonSchedules as $noonSchedule)
-                <button name="time" value="{{$noonSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded">{{$noonSchedule}}</button>
-                @endforeach
+            @if ($dontDisplay)
+
+            <div class="mb-6" id="message">
+                <p>Le restaurant est fermé ce jour-ci. Veuillez sélectionner une autre date.</p>
             </div>
-            <div class="mb-6">
-                @foreach ($eveningSchedules as $eveningSchedule)
-                <button name="time" value="{{$eveningSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded">{{$eveningSchedule}}</button>
-                @endforeach
+
+            <div class="hidden" id="schedule-display">
+                <div class="mb-6">
+                    <label for="time" class="inline-block text-lg mb-2">Heure</label><br>
+                    @foreach ($noonSchedules as $index => $noonSchedule)
+                      <button name="time" value="{{$noonSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="noon-schedule-{{$index}}-{{$noonSchedule}}">{{$noonSchedule}}</button>
+                    @endforeach
+                  </div>
+                  <div class="mb-6">
+                    @foreach ($eveningSchedules as $index => $eveningSchedule)
+                      <button name="time" value="{{$eveningSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="evening-schedule-{{$index}}-{{$eveningSchedule}}">{{$eveningSchedule}}</button>
+                    @endforeach
+                </div>
             </div>
+
+            @else
+
+            <div class="mb-6 hidden" id="message">
+                <p>Le restaurant est fermé ce jour-ci. Veuillez sélectionner une autre date.</p>
+            </div>
+
+            <div class="" id="schedule-display">
+                <div class="mb-6">
+                    <label for="time" class="inline-block text-lg mb-2">Heure</label><br>
+                    @foreach ($noonSchedules as $index => $noonSchedule)
+                    <button name="time" value="{{$noonSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="noon-schedule-{{$index}}-{{$noonSchedule}}">{{$noonSchedule}}</button>
+                    @endforeach
+                </div>
+                <div class="mb-6">
+                    @foreach ($eveningSchedules as $index => $eveningSchedule)
+                    <button name="time" value="{{$eveningSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="evening-schedule-{{$index}}-{{$eveningSchedule}}">{{$eveningSchedule}}</button>
+                    @endforeach
+                </div>
+            </div>
+
+            @endif
+
         </form>
     </div>
 </x-layout>
