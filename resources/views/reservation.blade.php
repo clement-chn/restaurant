@@ -1,6 +1,6 @@
 <x-layout>
     <div class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto my-24">
-        <form method="POST" action="/reservation">
+        <form action="/booktable" method="POST">
             @csrf
 
             <div class="mb-6">
@@ -70,17 +70,26 @@
                 <div class="mb-6">
                     <label for="time" class="inline-block text-lg mb-2">Heure</label><br>
                     @foreach ($noonSchedules as $index => $noonSchedule)
-                    <button name="time" value="{{$noonSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="noon-schedule-{{$index}}-{{$noonSchedule}}">{{$noonSchedule}}</button>
+                    <button type="button" name="time" value="{{$noonSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="noon-schedule-{{$index}}-{{$noonSchedule}}">{{$noonSchedule}}</button>
                     @endforeach
                 </div>
                 <div class="mb-6">
                     @foreach ($eveningSchedules as $index => $eveningSchedule)
-                    <button name="time" value="{{$eveningSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="evening-schedule-{{$index}}-{{$eveningSchedule}}">{{$eveningSchedule}}</button>
+                    <button type="button" name="time" value="{{$eveningSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="evening-schedule-{{$index}}-{{$eveningSchedule}}">{{$eveningSchedule}}</button>
                     @endforeach
                 </div>
             </div>
 
             @endif
+
+            <div class="mb-6">
+                <button
+                    type="submit"
+                    class="bg-red-500 text-white rounded py-2 px-4 hover:bg-red-400"
+                >
+                    Réserver
+                </button>
+            </div>
 
         </form>
     </div>

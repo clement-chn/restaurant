@@ -20,6 +20,8 @@ lastDayOfTheYear = yyyy + '-12-31';
 document.getElementById('datefield').setAttribute('min', today);
 document.getElementById('datefield').setAttribute('max', lastDayOfTheYear);
 
+// Changer les horaires
+
 document.getElementById('datefield').addEventListener('change', function() {
     let selectedDate = this.value;
     
@@ -30,14 +32,14 @@ document.getElementById('datefield').addEventListener('change', function() {
             var data = JSON.parse(xhr.responseText);
 
             function updateScheduleButtons(Schedules, idPrefix) {
-                const ScheduleButtons = document.querySelectorAll(`[id^="${idPrefix}"]`);
+                const scheduleButtons = document.querySelectorAll(`[id^="${idPrefix}"]`);
 
-                ScheduleButtons.forEach((button) => {
+                scheduleButtons.forEach((button) => {
                   button.textContent = '';
                 });
               
-                if (ScheduleButtons.length < Schedules.length) {
-                  for (let i = ScheduleButtons.length; i < Schedules.length; i++) {
+                if (scheduleButtons.length < Schedules.length) {
+                  for (let i = scheduleButtons.length; i < Schedules.length; i++) {
                     const button = document.createElement('button');
                     button.name = 'time';
                     button.value = Schedules[i];
@@ -47,15 +49,15 @@ document.getElementById('datefield').addEventListener('change', function() {
                     const divToAdd = document.querySelector(`[id^="${idPrefix}"]`).parentNode;
                     divToAdd.appendChild(button);
                   }
-                } else if (ScheduleButtons.length > Schedules.length) {
-                  for (let i = ScheduleButtons.length-1; i >= Schedules.length; i--) {
-                    ScheduleButtons[i].remove();
+                } else if (scheduleButtons.length > Schedules.length) {
+                  for (let i = scheduleButtons.length-1; i >= Schedules.length; i--) {
+                    scheduleButtons[i].remove();
                   }
                 }
     
                 Schedules.sort();
 
-                ScheduleButtons.forEach((button, index) => {
+                scheduleButtons.forEach((button, index) => {
                   button.textContent = Schedules[index];
                 });
             }

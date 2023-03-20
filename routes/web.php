@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\BookTableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +44,8 @@ Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 // -----------RESERVATION-------------------------------------
 
 Route::get('/reservation', [ScheduleController::class, 'index']);
+
 Route::get('/reservation/{selectedDate}', [ScheduleController::class, 'newdate']);
+
+Route::post('/booktable', [BookTableController::class, 'store']);
 
