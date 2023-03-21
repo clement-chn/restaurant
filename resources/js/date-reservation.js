@@ -41,6 +41,7 @@ document.getElementById('datefield').addEventListener('change', function() {
                 if (scheduleButtons.length < Schedules.length) {
                   for (let i = scheduleButtons.length; i < Schedules.length; i++) {
                     const button = document.createElement('button');
+                    button.type = 'button';
                     button.name = 'time';
                     button.value = Schedules[i];
                     button.className = 'bg-gold w-16 p-3 text-white m-2 rounded';
@@ -59,6 +60,7 @@ document.getElementById('datefield').addEventListener('change', function() {
 
                 scheduleButtons.forEach((button, index) => {
                   button.textContent = Schedules[index];
+                  button.type = 'button';
                 });
             }
 
@@ -80,4 +82,12 @@ document.getElementById('datefield').addEventListener('change', function() {
     xhr.send();
 });
 
+// Bouton cliqué
+
+// const scheduleButtonsClick = document.getElementsByClassName('btn');
+// console.log(scheduleButtonsClick);
+
+// scheduleButtonsClick.addEventListener('click', () => {
+//   scheduleButtonsClick.classList.toggle('bg-chocolate');
+// })
 

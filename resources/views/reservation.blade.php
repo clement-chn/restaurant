@@ -70,12 +70,12 @@
                 <div class="mb-6">
                     <label for="time" class="inline-block text-lg mb-2">Heure</label><br>
                     @foreach ($noonSchedules as $index => $noonSchedule)
-                    <button type="button" name="time" value="{{$noonSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="noon-schedule-{{$index}}-{{$noonSchedule}}">{{$noonSchedule}}</button>
+                    <button type="button" name="time" value="{{$noonSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded btn" id="noon-schedule-{{$index}}-{{$noonSchedule}}">{{$noonSchedule}}</button>
                     @endforeach
                 </div>
                 <div class="mb-6">
                     @foreach ($eveningSchedules as $index => $eveningSchedule)
-                    <button type="button" name="time" value="{{$eveningSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded" id="evening-schedule-{{$index}}-{{$eveningSchedule}}">{{$eveningSchedule}}</button>
+                    <button type="button" name="time" value="{{$eveningSchedule}}" class="bg-gold w-16 p-3 text-white m-2 rounded btn" id="evening-schedule-{{$index}}-{{$eveningSchedule}}">{{$eveningSchedule}}</button>
                     @endforeach
                 </div>
             </div>

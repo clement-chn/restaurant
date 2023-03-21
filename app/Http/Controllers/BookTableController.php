@@ -39,7 +39,7 @@ class BookTableController extends Controller
 
         dd($formFields);
 
-        // Vérifiations
+        // Vérifications
 
         if ($numberPeople > $totalSeats) {
             return back()->withErrors(['number' => "Il n'y a pas assez de place. Réservez un autre jour !"]);

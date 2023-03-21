@@ -12,8 +12,9 @@ class ScheduleController extends Controller
     public function index() {
             $todayFullDate = date('Y-m-d');
             setlocale(LC_TIME, 'fr_FR');
-            $dayOfWeek = strftime('%A', strtotime($todayFullDate));
-            $dayOfWeek = strtolower($dayOfWeek);
+            // $dayOfWeek = strftime('%A', strtotime($todayFullDate));
+            // $dayOfWeek = strtolower($dayOfWeek);
+            $dayOfWeek = 'jeudi';
 
         // générer les horaires
         function generateSchedules($openingTime, $closingTime) {
@@ -50,6 +51,10 @@ class ScheduleController extends Controller
 
         array_pop($noonSchedules);
         array_pop($noonSchedules);
+        array_pop($noonSchedules);
+        array_pop($noonSchedules);
+        array_pop($eveningSchedules);
+        array_pop($eveningSchedules);
         array_pop($eveningSchedules);
         array_pop($eveningSchedules);
 
@@ -93,6 +98,10 @@ class ScheduleController extends Controller
 
     array_pop($noonSchedules);
     array_pop($noonSchedules);
+    array_pop($noonSchedules);
+    array_pop($noonSchedules);
+    array_pop($eveningSchedules);
+    array_pop($eveningSchedules);
     array_pop($eveningSchedules);
     array_pop($eveningSchedules);
 
