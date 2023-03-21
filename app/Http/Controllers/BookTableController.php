@@ -24,8 +24,6 @@ class BookTableController extends Controller
             }
             return end($array); // or return NULL;
         }
-
-        // Fonction trouver maxSeat et diviser le nombre de personnes
         
         $dbQuery = Table::select('id', 'nbSeats')->where('isReserved', '=', false)->get();
 

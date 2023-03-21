@@ -33,7 +33,7 @@
             <p class="sm:mx-[20%] md:text-2xl lg:text-3xl text-center text-xl mx-7">Des <span class="underline decoration-4 decoration-gold">produits locaux</span> pour un <span class="underline decoration-4 decoration-gold">goût unique</span>, vous êtes au bon endroit pour découvrir ou redécouvrir les saveurs de notre région.</p>
             <div class="flex flex-col mt-16 mb-8">
                 <button class="hover:text-gold text-white text-lg bg-chocolate p-2 w-48 self-center mb-4"><a href="#">Voir la carte</a></button>
-                <button class="hover:text-chocolate md:text-2xl lg:text-3xl text-white text-lg bg-gold p-4 w-48 self-center mb-2"><a href="#">Réserver</a></button>
+                <button class="hover:text-chocolate md:text-2xl lg:text-3xl text-white text-lg bg-gold p-4 w-48 self-center mb-2"><a href="/reservation">Réserver</a></button>
             </div>
         </section>
     </main>

@@ -36,7 +36,7 @@
           </li>
           @else
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="/register">Inscription</a></li>
-          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="/login">Connection</a></li>
+          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="/login">Connexion</a></li>
           @endauth
         </ul>
     </nav>
