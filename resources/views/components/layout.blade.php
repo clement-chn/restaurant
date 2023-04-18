@@ -11,6 +11,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/toggle-menu.js')
     @vite('resources/js/date-reservation.js')
+    @vite('resources/js/changing-name-btn.js')
 </head>
 <body>
     <nav class="sm:flex sm:justify-between p-5 shadow-md z-40">

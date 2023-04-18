@@ -82,12 +82,3 @@ document.getElementById('datefield').addEventListener('change', function() {
     xhr.send();
 });
 
-// Bouton cliqué
-
-// const scheduleButtonsClick = document.getElementsByClassName('btn');
-// console.log(scheduleButtonsClick);
-
-// scheduleButtonsClick.addEventListener('click', () => {
-//   scheduleButtonsClick.classList.toggle('bg-chocolate');
-// })
-

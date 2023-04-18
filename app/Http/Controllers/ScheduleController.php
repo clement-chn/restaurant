@@ -12,9 +12,9 @@ class ScheduleController extends Controller
     public function index() {
             $todayFullDate = date('Y-m-d');
             setlocale(LC_TIME, 'fr_FR');
-            // $dayOfWeek = strftime('%A', strtotime($todayFullDate));
-            // $dayOfWeek = strtolower($dayOfWeek);
-            $dayOfWeek = 'jeudi';
+            $dayOfWeek = strftime('%A', strtotime($todayFullDate));
+            $dayOfWeek = strtolower($dayOfWeek);
+            // $dayOfWeek = 'jeudi';
 
         // générer les horaires
         function generateSchedules($openingTime, $closingTime) {

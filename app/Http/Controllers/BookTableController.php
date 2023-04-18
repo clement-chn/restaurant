@@ -11,8 +11,13 @@ class BookTableController extends Controller
     public function store(Request $request) {
         $formFields = $request->validate([
             'name' => 'required',
-            'number' => ["required","numeric","min:1","not_in:0"]
+            'number' => ["required","numeric","min:1","not_in:0"],
+            'allergies' => ["required"],
+            'date' => ["required"],
+            'time-clicked' => ["required"]
         ]);
+
+        dd($formFields);
 
         $numberPeople = $_POST['number'];
 
