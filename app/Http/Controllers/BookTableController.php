@@ -17,8 +17,6 @@ class BookTableController extends Controller
             'time-clicked' => ["required"]
         ]);
 
-        dd($formFields);
-
         $numberPeople = $_POST['number'];
 
         function closest($array, $number) {
@@ -29,18 +27,51 @@ class BookTableController extends Controller
             }
             return end($array); // or return NULL;
         }
-        
-        $dbQuery = Table::select('id', 'nbSeats')->where('isReserved', '=', false)->get();
+
+        function book($closestSeat, $idSeat, $formFields) {
+            $booktable = new BookTable;
+            
+            $booktable->name = $formFields['name'];
+            $booktable->nbPeople = $formFields['number'];
+            $booktable->allergies = $formFields['allergies'];
+            $booktable->date = $formFields['date'];
+            $booktable->time = $formFields['time-clicked'];
+            $booktable->tableId = $idSeat;
+            // $booktable->userId = 10;
+            $booktable->save();
+
+        }
+
+        $dbQueryTwo = Booktable::select('date', 'tableId')->get()->toArray();
+
+        $allReservation = [];
+
+        foreach ($dbQueryTwo as $item) {
+            $allReservation[$item['date']][] = $item['tableId'];
+        }
+
+        $dbQuery = Table::select('id', 'nbSeats')->get();
 
         $allSeats = array();
+
         foreach ($dbQuery as $seat) {
-            $allSeats[] = $seat->nbSeats;
+            $allSeats[$seat->id] = $seat->nbSeats;
+        }
+
+        // il faut la date ici aussi
+        if ($formFields['date'] == array_key_exists($formFields['date'], $allReservation)) {
+            $seats = $allReservation[$formFields['date']];
+        }
+
+        foreach ($seats as $seat) {
+            $key = array_key_exists($seat, $allSeats); // trouve pas
+            if ($key !== false) {
+                unset($allSeats[$seat]);
+            }
         }
         
         $totalSeats = array_sum($allSeats);
         $maxSeats = max($allSeats);
-
-        dd($formFields);
 
         // Vérifications
 
@@ -50,7 +81,7 @@ class BookTableController extends Controller
 
         if ($numberPeople <= $maxSeats) {
             $closestSeat = closest($allSeats, $numberPeople);
-            // Réserver
+            $idSeat = array_search($closestSeat, $allSeats);
         }
 
         if ($numberPeople > $maxSeats) {
@@ -60,13 +91,21 @@ class BookTableController extends Controller
 
                 $closestSeat = closest($allSeats, $dividedNumberPeople);
                 // Réserver
+                $closestSeat = closest($allSeats, $numberPeople);
+                $idSeat = array_search($closestSeat, $allSeats);
+
+                book($closestSeat, $idSeat, $formFields);
+                return redirect('/');
 
                 $numberPeople = $numberPeople - $dividedNumberPeople;
 
             }
 
         }
-    
 
+        // --- Réserver
+    
+        book($closestSeat, $idSeat, $formFields);
+        return redirect('/');
     }
 }
