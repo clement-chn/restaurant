@@ -28,11 +28,13 @@ class BookTableController extends Controller
             return end($array); // or return NULL;
         }
 
-        function book($closestSeat, $idSeat, $formFields) {
+        function book($closestSeat, $idSeat, $formFields, $numberPeople) {
             $booktable = new BookTable;
+
+
             
             $booktable->name = $formFields['name'];
-            $booktable->nbPeople = $formFields['number'];
+            $booktable->nbPeople = $numberPeople;
             $booktable->allergies = $formFields['allergies'];
             $booktable->date = $formFields['date'];
             $booktable->time = $formFields['time-clicked'];
@@ -52,6 +54,14 @@ class BookTableController extends Controller
 
         $dbQuery = Table::select('id', 'nbSeats')->get();
 
+        // $dbQueryThree = Booktable::select('name')->where('date', '=', $formFields['date'])->get()->toArray();
+
+        // if (array_search($formFields['name'], $dbQueryThree)) {
+        //     dd('yes');
+        // }
+        
+        // dd($dbQueryThree);
+
         $allSeats = array();
 
         foreach ($dbQuery as $seat) {
@@ -64,7 +74,7 @@ class BookTableController extends Controller
         }
 
         foreach ($seats as $seat) {
-            $key = array_key_exists($seat, $allSeats); // trouve pas
+            $key = array_key_exists($seat, $allSeats);
             if ($key !== false) {
                 unset($allSeats[$seat]);
             }
@@ -75,6 +85,32 @@ class BookTableController extends Controller
 
         // Vérifications
 
+        if ($numberPeople > $maxSeats) {
+
+            while ($numberPeople !== $maxSeats || $numberPeople < $maxSeats) {
+
+                $dividedNumberPeople = $numberPeople - $maxSeats;
+                while ($dividedNumberPeople > $maxSeats) {
+                    $dividedNumberPeople = $dividedNumberPeople - $maxSeats;
+                }
+
+                $closestSeat = closest($allSeats, $dividedNumberPeople);
+
+                $idSeat = array_search($closestSeat, $allSeats);
+
+                $numberPeople = $numberPeople - $dividedNumberPeople;
+
+                $key = array_key_exists($idSeat, $allSeats);
+                if ($key !== false) {
+                    unset($allSeats[$idSeat]);
+                }
+
+                book($closestSeat, $idSeat, $formFields, $dividedNumberPeople);
+
+            }
+
+        }
+
         if ($numberPeople > $totalSeats) {
             return back()->withErrors(['number' => "Il n'y a pas assez de place. Réservez un autre jour !"]);
         }
@@ -82,30 +118,9 @@ class BookTableController extends Controller
         if ($numberPeople <= $maxSeats) {
             $closestSeat = closest($allSeats, $numberPeople);
             $idSeat = array_search($closestSeat, $allSeats);
+
+            book($closestSeat, $idSeat, $formFields, $numberPeople);
+            return redirect('/');
         }
-
-        if ($numberPeople > $maxSeats) {
-
-            while ($numberPeople < $maxSeats) {
-                $dividedNumberPeople = $numberPeople - $maxSeats;
-
-                $closestSeat = closest($allSeats, $dividedNumberPeople);
-                // Réserver
-                $closestSeat = closest($allSeats, $numberPeople);
-                $idSeat = array_search($closestSeat, $allSeats);
-
-                book($closestSeat, $idSeat, $formFields);
-                return redirect('/');
-
-                $numberPeople = $numberPeople - $dividedNumberPeople;
-
-            }
-
-        }
-
-        // --- Réserver
-    
-        book($closestSeat, $idSeat, $formFields);
-        return redirect('/');
     }
 }
