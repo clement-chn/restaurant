@@ -12,7 +12,7 @@ class BookTableController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'number' => ["required","numeric","min:1","not_in:0"],
-            'allergies' => ["required"],
+            'allergies' => [],
             'date' => ["required"],
             'time-clicked' => ["required"]
         ]);
@@ -30,12 +30,14 @@ class BookTableController extends Controller
 
         function book($closestSeat, $idSeat, $formFields, $numberPeople) {
             $booktable = new BookTable;
-
-
             
             $booktable->name = $formFields['name'];
             $booktable->nbPeople = $numberPeople;
-            $booktable->allergies = $formFields['allergies'];
+
+            if (!empty($formFields['allergies'])) {
+                $booktable->allergies = $formFields['allergies'];
+            }
+
             $booktable->date = $formFields['date'];
             $booktable->time = $formFields['time-clicked'];
             $booktable->tableId = $idSeat;
@@ -54,14 +56,6 @@ class BookTableController extends Controller
 
         $dbQuery = Table::select('id', 'nbSeats')->get();
 
-        // $dbQueryThree = Booktable::select('name')->where('date', '=', $formFields['date'])->get()->toArray();
-
-        // if (array_search($formFields['name'], $dbQueryThree)) {
-        //     dd('yes');
-        // }
-        
-        // dd($dbQueryThree);
-
         $allSeats = array();
 
         foreach ($dbQuery as $seat) {
@@ -71,6 +65,8 @@ class BookTableController extends Controller
         // il faut la date ici aussi
         if ($formFields['date'] == array_key_exists($formFields['date'], $allReservation)) {
             $seats = $allReservation[$formFields['date']];
+        } else {
+            $seats = [];
         }
 
         foreach ($seats as $seat) {
