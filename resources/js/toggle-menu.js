@@ -12,3 +12,4 @@ btn.addEventListener('click', () => {
         img.src="/burger/close.png";
     }
 })
+

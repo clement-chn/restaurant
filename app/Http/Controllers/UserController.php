@@ -8,12 +8,12 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    // Show Register/ Create Form
+    // Montrer le formulaire
     public function create() {
         return view('users.register');
     }
 
-    // Create New User
+    // Créer un nouvel utilisateur
     public function store(Request $request) {
         $formFields = $request->validate([
             'email' => ['required', 'email', Rule::unique('users', 'email')],
@@ -21,10 +21,10 @@ class UserController extends Controller
             'number' => 'required|numeric|min:1|not_in:0'
         ]);
 
-        // Hash Password
+        // Hash le mot de passe
         $formFields['password'] = bcrypt($formFields['password']);
 
-        // Create User
+        // Créer l'utilisateur
         $user = User::create($formFields);
 
         // Login
@@ -33,7 +33,7 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    // Logout User
+    // Déconnexion
     public function logout(Request $request) {
         auth()->logout();
 
@@ -43,12 +43,12 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    // Show Login Form
+    // Montrer le formulaire de connexion
     public function login() {
         return view('users.login');
     }
 
-    // Authenticate User
+    // Connecter l'utilisateur
     public function authenticate(Request $request) {
         $formFields = $request->validate([
             'email' => ['required', 'email'],

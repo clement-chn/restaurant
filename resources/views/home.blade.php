@@ -3,7 +3,7 @@
         <img class="min-h-screen object-cover" src="{{asset('/photos/plats/tartare_saumon_coriandre_2.jpeg')}}" alt="Tartare de saumon à la coriandre">
         <div class="sm:top-24 min-h-screen w-full flex flex-col justify-around absolute top-24" id="citation">
                 <h2 class="sm:max-w-2xl md:text-6xl self-center text-white text-4xl text-center drop-shadow-2xl">Une cuisine traditionnelle aux saveurs authentiques de la Savoie</h2>
-                <button class="text-white text-lg bg-gold p-4 w-48 self-center"><a href="#">Réserver</a></button>
+                <button class="text-white text-lg bg-gold p-4 w-48 self-center"><a href="/reservation">Réserver</a></button>
         </div>
         <section class="mt-8">
             <div class="sm:flex sm:mx-[5%]">

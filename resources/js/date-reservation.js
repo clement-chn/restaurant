@@ -23,6 +23,7 @@ document.getElementById('datefield').setAttribute('max', lastDayOfTheYear);
 // Changer les horaires
 
 document.getElementById('datefield').addEventListener('change', function() {
+
     let selectedDate = this.value;
     
     let xhr = new XMLHttpRequest();
@@ -77,8 +78,46 @@ document.getElementById('datefield').addEventListener('change', function() {
                 document.getElementById('schedule-display').classList.remove("hidden");
                 document.getElementById('message').classList.add("hidden");
             }
+
+            // Sélection/ Dé-sélection
+
+            let scheduleButtons = document.querySelectorAll('button[name="time"]');
+            const scheduleInput = document.getElementById('time-clicked-input');
+            let selectedButton = null;
+
+            // CA MARCHE MAIS DES FOIS SELECTIONNE 2, LE PB N'EST PAS LES NVX BTN GENERES CA ARRIVE ENTRE EUX!
+
+            scheduleButtons.forEach(scheduleButton => {
+              scheduleButton.addEventListener('click', function(event) {
+                console.log(scheduleButtons);
+
+                let button = event.target;
+            
+                if (button === selectedButton) {
+                  console.log('le bouton est dé-sélectionné');
+                  button.className = 'bg-gold w-16 p-3 text-white m-2 rounded';
+                  button.name = "time";
+                  scheduleInput.value = "";
+                  selectedButton = null;
+                } 
+                else {
+                  console.log('le bouton est sélectionné');
+                  if (selectedButton) {
+                    selectedButton.className = 'bg-gold w-16 p-3 text-white m-2 rounded';
+                    selectedButton.name = "time";
+                  }
+                  button.className = 'bg-chocolate w-16 p-3 text-white m-2 rounded';
+                  button.name = "time-clicked";
+                  scheduleInput.value = button.value;
+                  selectedButton = button;
+                }
+              });
+            });  
+
         }
     };
     xhr.send();
 });
+
+  
 

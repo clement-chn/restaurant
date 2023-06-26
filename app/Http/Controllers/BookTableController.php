@@ -25,7 +25,7 @@ class BookTableController extends Controller
             foreach ($array as $a) {
                 if ($a >= $number) return $a;
             }
-            return end($array); // or return NULL;
+            return end($array);
         }
 
         function book($closestSeat, $idSeat, $formFields, $numberPeople) {
@@ -45,6 +45,7 @@ class BookTableController extends Controller
             $booktable->save();
 
         }
+
 
         $dbQueryTwo = Booktable::select('date', 'tableId')->get()->toArray();
 

@@ -14,7 +14,6 @@ class ScheduleController extends Controller
             setlocale(LC_TIME, 'fr_FR');
             $dayOfWeek = strftime('%A', strtotime($todayFullDate));
             $dayOfWeek = strtolower($dayOfWeek);
-            // $dayOfWeek = 'jeudi';
 
         // générer les horaires
         function generateSchedules($openingTime, $closingTime) {

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\BookTableController;
 
@@ -24,7 +25,7 @@ Route::get('/carte', function () {
     return view('carte');
 });
 
-//------------CONNECTION/DECONNECTION/INSCRIPTION-----------
+//------------CONNEXION/DECONNECTION/INSCRIPTION-----------
 
 // Show Register/ Create Form
 Route::get('/register', [UserController::class, 'create']);
@@ -48,4 +49,8 @@ Route::get('/reservation', [ScheduleController::class, 'index']);
 Route::get('/reservation/{selectedDate}', [ScheduleController::class, 'newdate']);
 
 Route::post('/booktable', [BookTableController::class, 'store']);
+
+// -----------ADMIN-------------------------------------------
+
+Route::get('/dashboard', [AdminController::class, 'index']);
 

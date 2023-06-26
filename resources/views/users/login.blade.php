@@ -1,7 +1,7 @@
 <x-layout>
     <div class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto my-24">
         <header class="text-center">
-            <h2 class="text-2xl font-bold uppercase mb-1">Connection</h2>
+            <h2 class="text-2xl font-bold uppercase mb-1">Connexion</h2>
         </header>
     
         <form method="POST" action="/users/authenticate">
