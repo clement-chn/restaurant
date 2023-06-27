@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind+Madurai:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
     @vite('resources/js/toggle-menu.js')
+    @vite('resources/js/admin/schedule.js')
 </head>
 <body>
     <nav class="sm:flex sm:justify-between p-5 shadow-md z-40">
