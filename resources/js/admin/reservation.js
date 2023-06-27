@@ -1,7 +1,7 @@
 const deleteBtn = document.getElementById('delete-btn');
 
 const crosses = [];
-let i = 1;
+let i = 0;
 let cross = document.getElementById(`cross-${i}`);
 
 while (cross) {
