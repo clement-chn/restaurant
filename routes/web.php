@@ -54,3 +54,5 @@ Route::post('/booktable', [BookTableController::class, 'store']);
 
 Route::get('/dashboard', [AdminController::class, 'index']);
 
+Route::get('/dashboard/newdate', [AdminController::class, 'newdate']);
+

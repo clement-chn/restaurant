@@ -1,3 +1,5 @@
+// Faire apparaitre les croix et le bouton enregister
+
 const deleteBtn = document.getElementById('delete-btn');
 
 const crosses = [];
@@ -33,5 +35,16 @@ crosses.forEach((cross) => {
         }
     });
 });
+
+// Faire apparaitre le bouton "changer de date"
+
+const dateBtn = document.getElementById('date-btn');
+const dateField = document.getElementById('datefield');
+
+dateField.addEventListener('change', () => {
+  dateBtn.classList.remove('hidden');
+})
+
+console.log(dateField);
   
 

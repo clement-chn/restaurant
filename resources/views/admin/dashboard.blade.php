@@ -1,7 +1,7 @@
 <x-layout-admin>
     <main class="p-12">
 
-        <form action="" class="flex">
+        <form action="/dashboard/newdate" method="GET" class="flex">
             <div class="basis-2/3 flex justify-end">
                 <div class="flex flex-col w-96">
                     <h2 class="mb-3 self-center">Date</h2>
@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="basis-1/3 self-center">
-                <button type="submit" class="bg-gold text-white rounded py-2 px-4 hover:bg-chocolate mt-4 ml-4">Changer de date</button>
+                <button type="submit" class="bg-gold text-white rounded py-2 px-4 hover:bg-chocolate mt-4 ml-4 hidden" id="date-btn">Changer de date</button>
             </div>
         </form>
 
