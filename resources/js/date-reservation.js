@@ -1,3 +1,34 @@
+// Sélection/ Dé-sélection
+
+let scheduleButtons = document.querySelectorAll('button[name="time"]');
+
+const scheduleInput = document.getElementById('time-clicked-input');
+let selectedButton = null;
+
+scheduleButtons.forEach(scheduleButton => {
+  scheduleButton.addEventListener('click', function(event) {
+
+    let button = event.target;
+
+    if (button === selectedButton) {
+      button.className = 'bg-gold w-16 p-3 text-white m-2 rounded';
+      button.name = "time";
+      scheduleInput.value = "";
+      selectedButton = null;
+    } 
+    else {
+      if (selectedButton) {
+        selectedButton.className = 'bg-gold w-16 p-3 text-white m-2 rounded';
+        selectedButton.name = "time";
+      }
+      button.className = 'bg-chocolate w-16 p-3 text-white m-2 rounded';
+      button.name = "time-clicked";
+      scheduleInput.value = button.value;
+      selectedButton = button;
+    }
+  });
+})
+
 // Date de réservation
 
 let today = new Date();
@@ -82,10 +113,9 @@ document.getElementById('datefield').addEventListener('change', function() {
             // Sélection/ Dé-sélection
 
             let scheduleButtons = document.querySelectorAll('button[name="time"]');
+
             const scheduleInput = document.getElementById('time-clicked-input');
             let selectedButton = null;
-
-            // CA MARCHE MAIS DES FOIS SELECTIONNE 2, LE PB N'EST PAS LES NVX BTN GENERES CA ARRIVE ENTRE EUX!
 
             scheduleButtons.forEach(scheduleButton => {
               scheduleButton.addEventListener('click', function(event) {
