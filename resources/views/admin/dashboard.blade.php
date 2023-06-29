@@ -2,6 +2,7 @@
     <main class="p-12">
 
         <form action="/dashboard/newdate" method="GET" class="flex">
+
             <div class="basis-2/3 flex justify-end">
                 <div class="flex flex-col w-96">
                     <h2 class="mb-3 self-center">Date</h2>
@@ -14,6 +15,7 @@
         </form>
 
         <form action="/dashboard/delete" method="POST" class="flex flex-col">
+            @csrf
 
             <div class="flex justify-center">
             {{-- TABLEAU --}}
@@ -84,6 +86,7 @@
                         <br>
                     @endfor
                     <input type="hidden" id="clickedButton" name="clickedButton" value="">
+                    <input type="hidden" id="newDate" name="newDate" value="{{$todayFullDate}}">
                 </div>
             </div>
             <div class="self-end mt-8 mx-auto">
