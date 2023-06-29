@@ -12,11 +12,44 @@ while (cross) {
   cross = document.getElementById(`cross-${i}`);
 }
 
+const input = document.getElementById('clickedButton');
+
+// let clickedButtons = [];
+
+//     function toggleClickedButton(buttonIndex) {
+//         if (clickedButtons.includes(buttonIndex)) {
+//             // Remove the buttonIndex from the array
+//             clickedButtons = clickedButtons.filter(item => item !== buttonIndex);
+//         } else {
+//             // Add the buttonIndex to the array
+//             clickedButtons.push(buttonIndex);
+//         }
+
+//         // Update the hidden input field value
+//         document.getElementById('clickedButtons').value = JSON.stringify(clickedButtons);
+//     }
+
+
 crosses.forEach((cross) => {
   cross.addEventListener('click', () => {
     event.preventDefault();
     cross.classList.toggle('opacity-100');
 
+    // Avoir le numéro du bouton
+    const str = cross.id;
+    const btnNumber = parseInt(str.substring(str.indexOf("cross-") + 6));
+
+    // Changer la value de l'input
+    if (input.value.includes(btnNumber)) {
+      console.log('oui ça inclut');
+      const oldValue = input.value;
+      const newValue = oldValue.replace(btnNumber, "");
+      input.value = newValue;
+    } else {
+      input.value = input.value + " " + btnNumber;
+    }
+
+    
     if (cross.classList.contains('opacity-100')) {
         deleteBtn.classList.remove('hidden');
       } 
@@ -44,7 +77,5 @@ const dateField = document.getElementById('datefield');
 dateField.addEventListener('change', () => {
   dateBtn.classList.remove('hidden');
 })
-
-console.log(dateField);
   
 

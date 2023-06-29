@@ -84,4 +84,14 @@ class AdminController extends Controller
         ]);
 
     }
+
+    public function delete (Request $request) {
+
+        dd($request);
+        
+        $formFields = $request->validate([
+            ''
+        ]);
+
+    }
 }

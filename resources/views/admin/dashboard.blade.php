@@ -13,7 +13,7 @@
             </div>
         </form>
 
-        <form action="" class="flex flex-col">
+        <form action="/dashboard/delete" method="POST" class="flex flex-col">
 
             <div class="flex justify-center">
             {{-- TABLEAU --}}
@@ -83,6 +83,7 @@
                         </button>
                         <br>
                     @endfor
+                    <input type="hidden" id="clickedButton" name="clickedButton" value="">
                 </div>
             </div>
             <div class="self-end mt-8 mx-auto">
