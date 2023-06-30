@@ -1,4 +1,5 @@
 <x-layout-admin>
+    @if($isUserAdmin)
     <main class="p-12">
 
         <form action="/dashboard/newdate" method="GET" class="flex">
@@ -93,37 +94,16 @@
                 <button type="submit" class="bg-gold text-white rounded py-2 px-4 hover:bg-chocolate hidden block" id="delete-btn">Enregistrer les modifications</button>
             </div>
         </form>
-            
-    
-
-        {{-- @foreach ($tableIds as $tableId)
-        <li class="text-center">{{$tableId}}</li>
-        @endforeach --}}
-
-
-
-        {{-- @foreach ($times as $time)
-        <li class="text-center">{{$time}}</li>
-        @endforeach --}}
-    
-
-
-        {{-- @foreach ($nbPeoples as $nbPeople)
-        <li class="text-center">{{$nbPeople}}</li>
-        @endforeach --}}
-    
-
-
-        {{-- @if ($allergies)
-
-        @foreach ($allergies as $allergie)
-        <li class="text-center">{{$allergie}}</li>
-        @endforeach
-
-        @else
-
-        <li class="text-center">Sans</li>
-
-        @endif --}}
     </main>
+    @else
+    <div class="flex justify-center items-center h-screen">
+        <div class="text-center">
+          <h1>Vous n'êtes pas autorisé à consulter cette page.</h1>
+        </div>
+    </div>
+    <?php
+    header("Location: localhost:8000"); // Replace "/path/to/destination" with the actual URL or path
+    exit;
+    ?>
+    @endif
 </x-layout-admin>

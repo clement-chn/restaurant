@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Booktable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index () {
+
+        $user = Auth::user();
+        if ($user) {
+            $isUserAdmin = $user->isAdmin;
+        } else {
+            $isUserAdmin = 0;
+        }
+
         $todayFullDate = date('Y-m-d');
 
         $reservations = Booktable::where('date', $todayFullDate)->get()->toArray();
@@ -33,8 +43,9 @@ class AdminController extends Controller
         }
 
         $nbReservations = count($names);
-       
+
         return view('admin/dashboard', [
+            'isUserAdmin' => $isUserAdmin,
             'todayFullDate' => $todayFullDate,
             'names' => $names,
             'nbPeoples' => $nbPeoples,
@@ -46,6 +57,13 @@ class AdminController extends Controller
     }
 
     public function newdate (Request $request) {
+
+        $user = Auth::user();
+        if ($user) {
+            $isUserAdmin = $user->isAdmin;
+        } else {
+            $isUserAdmin = 0;
+        }
 
         $newDate = $request->input('date');
 
@@ -74,6 +92,7 @@ class AdminController extends Controller
         $nbReservations = count($names);
        
         return view('admin/dashboard', [
+            'isUserAdmin' => $isUserAdmin,
             'todayFullDate' => $newDate,
             'names' => $names,
             'nbPeoples' => $nbPeoples,
@@ -87,7 +106,12 @@ class AdminController extends Controller
 
     public function delete (Request $request) {
 
-        // dd($request);
+        $user = Auth::user();
+        if ($user) {
+            $isUserAdmin = $user->isAdmin;
+        } else {
+            $isUserAdmin = 0;
+        }
         
         $formFields = $request->validate([
             'clickedButton' => 'required',
@@ -140,6 +164,7 @@ class AdminController extends Controller
         $nbReservations = count($names);
        
         return view('admin/dashboard', [
+            'isUserAdmin' => $isUserAdmin,
             'todayFullDate' => $date,
             'names' => $names,
             'nbPeoples' => $nbPeoples,

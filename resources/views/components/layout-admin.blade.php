@@ -15,7 +15,7 @@
 <body>
     <nav class="sm:flex sm:justify-between p-5 shadow-md z-40">
         <div class="flex justify-between">
-          <h1 class="lg:text-5xl md:text-4xl font-logo self-center text-3xl text-gold"><a href="/">Panel Administratif</a></h1>
+          <h1 class="lg:text-5xl md:text-4xl font-logo self-center text-3xl text-gold"><a href="/dashboard">Panel Administratif</a></h1>
           <button class="sm:hidden" id="menu-btn">
             <img class="w-10 h-10" src="{{asset('/burger/burger.png')}}" alt="menu deroulant" id="menu-img">
           </button>
