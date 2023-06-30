@@ -6,14 +6,30 @@ use DateTime;
 use DateInterval;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
     public function index() {
-            $todayFullDate = date('Y-m-d');
-            setlocale(LC_TIME, 'fr_FR');
-            $dayOfWeek = strftime('%A', strtotime($todayFullDate));
-            $dayOfWeek = strtolower($dayOfWeek);
+
+        $user = Auth::user();
+
+        if ($user) {
+            $userNbPeople = $user->number;
+            if ($user->allergies) {
+                $userAllergies = $user->allergies;
+            } else {
+                $userAllergies = '';
+            }
+        } else {
+            $userNbPeople = 1;
+            $userAllergies = '';
+        }
+
+        $todayFullDate = date('Y-m-d');
+        setlocale(LC_TIME, 'fr_FR');
+        $dayOfWeek = strftime('%A', strtotime($todayFullDate));
+        $dayOfWeek = strtolower($dayOfWeek);
 
         // générer les horaires
         function generateSchedules($openingTime, $closingTime) {
@@ -61,7 +77,9 @@ class ScheduleController extends Controller
             'noonSchedules' => $noonSchedules,
             'eveningSchedules' => $eveningSchedules,
             'todayFullDate' => $todayFullDate,
-            'dontDisplay' => $dontDisplay
+            'dontDisplay' => $dontDisplay,
+            'userNbPeople' => $userNbPeople,
+            'userAllergies' => $userAllergies
         ]);
     }
 

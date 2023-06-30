@@ -14,7 +14,7 @@
 
             <div class="mb-6">
                 <label for="number" class="inline-block text-lg mb-2">Nombre de personnes</label>
-                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="number" value="" min="1">
+                <input type="number" class="border border-gray-200 rounded p-2 w-full" name="number" value="{{$userNbPeople}}" min="1">
 
                 {{-- Dans value, mettre celle de User --}}
 
@@ -25,7 +25,7 @@
 
             <div class="mb-6">
                 <label for="text" class="inline-block text-lg mb-2">Des allergies?</label>
-                <input type="text" placeholder="ex: lactose, arachides..." class="border border-gray-200 rounded p-2 w-full" name="allergies" value="" >
+                <input type="text" placeholder="ex: lactose, arachides..." class="border border-gray-200 rounded p-2 w-full" name="allergies" value="{{$userAllergies}}" >
 
                 {{-- Dans value, mettre celle de User --}}
 
