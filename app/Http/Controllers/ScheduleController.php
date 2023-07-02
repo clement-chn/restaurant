@@ -12,6 +12,7 @@ class ScheduleController extends Controller
 {
     public function index() {
 
+        // Préremplir le formulaire pour les utilisateurs connectés
         $user = Auth::user();
 
         if ($user) {
@@ -26,12 +27,13 @@ class ScheduleController extends Controller
             $userAllergies = '';
         }
 
+        // Trouver la date du jour
         $todayFullDate = date('Y-m-d');
         setlocale(LC_TIME, 'fr_FR');
         $dayOfWeek = strftime('%A', strtotime($todayFullDate));
         $dayOfWeek = strtolower($dayOfWeek);
 
-        // générer les horaires
+        // Génère un tableau avec les horaires par tranche de 15'
         function generateSchedules($openingTime, $closingTime) {
             $openingTime = new DateTime($openingTime);
             $closingTime = new DateTime($closingTime);
@@ -47,12 +49,14 @@ class ScheduleController extends Controller
             return $schedules;
         }
 
+        // Récupère les horaires de la BDD dans des variables
         $schedule = Schedule::where('day', $dayOfWeek)->first();
         $noonOpeningTime = $schedule->noonOpeningTime;
         $noonClosingTime = $schedule->noonClosingTime;
         $eveningOpeningTime = $schedule->eveningOpeningTime;
         $eveningClosingTime = $schedule->eveningClosingTime;
 
+        // Vérifie si le restaurant est fermé à ce jour
         $closedDays = Schedule::where('isClosed', true)->get()->pluck('day')->toArray();
 
         if (in_array($dayOfWeek, $closedDays)) {
@@ -61,9 +65,11 @@ class ScheduleController extends Controller
             $dontDisplay = false;
         }
 
+        // Génère le tableau d'horaires
         $noonSchedules = generateSchedules($noonOpeningTime, $noonClosingTime);
         $eveningSchedules = generateSchedules($eveningOpeningTime, $eveningClosingTime);
 
+        // Enlever la dernière heure
         array_pop($noonSchedules);
         array_pop($noonSchedules);
         array_pop($noonSchedules);
@@ -73,6 +79,7 @@ class ScheduleController extends Controller
         array_pop($eveningSchedules);
         array_pop($eveningSchedules);
 
+        // Retourne la vue
         return view('reservation', [
             'noonSchedules' => $noonSchedules,
             'eveningSchedules' => $eveningSchedules,

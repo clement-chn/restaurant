@@ -43,10 +43,10 @@ class BookTableController extends Controller
             $booktable->tableId = $idSeat;
             // $booktable->userId = 10;
             $booktable->save();
-
+            
         }
-
-
+        
+        // Calcule le nombre de personnes maximum et les réservations déjà actives
         $dbQueryTwo = Booktable::select('date', 'tableId')->get()->toArray();
 
         $allReservation = [];
@@ -63,7 +63,6 @@ class BookTableController extends Controller
             $allSeats[$seat->id] = $seat->nbSeats;
         }
 
-        // il faut la date ici aussi
         if ($formFields['date'] == array_key_exists($formFields['date'], $allReservation)) {
             $seats = $allReservation[$formFields['date']];
         } else {

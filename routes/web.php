@@ -58,3 +58,5 @@ Route::get('/dashboard/newdate', [AdminController::class, 'newdate']);
 
 Route::post('/dashboard/delete', [AdminController::class, 'delete']);
 
+Route::get('/schedule', [AdminController::class, 'schedule']);
+

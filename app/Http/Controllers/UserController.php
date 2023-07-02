@@ -18,7 +18,8 @@ class UserController extends Controller
         $formFields = $request->validate([
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed|min:6',
-            'number' => 'required|numeric|min:1|not_in:0'
+            'number' => 'required|numeric|min:1|not_in:0',
+            'allergies' => 'nullable|string'
         ]);
 
         // Hash le mot de passe
@@ -57,6 +58,12 @@ class UserController extends Controller
 
         if(auth()->attempt($formFields)) {
             $request->session()->regenerate();
+            $user = auth()->user();
+            $isUserAdmin = $user->isAdmin;
+
+            if($isUserAdmin) {
+                return redirect('/dashboard');
+            }
 
             return redirect('/');
         }

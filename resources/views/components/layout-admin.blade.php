@@ -11,6 +11,7 @@
     @vite('resources/css/app.css')
     @vite('resources/js/toggle-menu.js')
     @vite('resources/js/admin/reservation.js')
+    @vite('resources/js/admin/schedule.js')
 </head>
 <body>
     <nav class="sm:flex sm:justify-between p-5 shadow-md z-40">
@@ -21,8 +22,8 @@
           </button>
         </div>
         <ul class="sm:block sm:flex sm:py-0 font-subtitle hidden text-center py-8" id="menu-links">
-          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Horaires</a></li>
-          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="#">Réservations</a></li>
+          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="/schedule">Horaires</a></li>
+          <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg hover:text-gold"><a href="/dashboard">Réservations</a></li>
           <li class="lg:text-lg lg:p-4 sm:p-2 sm:text-base p-4 text-lg text-red-400 hover:text-red-300">
             <form method="POST" action="/logout">
             @csrf

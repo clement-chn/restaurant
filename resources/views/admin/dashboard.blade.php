@@ -2,9 +2,9 @@
     @if($isUserAdmin)
     <main class="p-12">
 
-        <form action="/dashboard/newdate" method="GET" class="flex">
+        <form action="/dashboard/newdate" method="GET" class="flex flex-col" id="form">
 
-            <div class="basis-2/3 flex justify-end">
+            <div class="self-center" id="datefield-container">
                 <div class="flex flex-col w-96">
                     <h2 class="mb-3 self-center">Date</h2>
                     <input type="date" class="border border-gray-200 rounded p-2 w-full mb-5" name="date" min="" max="" id="datefield" value="{{$todayFullDate}}">
@@ -88,6 +88,7 @@
                     @endfor
                     <input type="hidden" id="clickedButton" name="clickedButton" value="">
                     <input type="hidden" id="newDate" name="newDate" value="{{$todayFullDate}}">
+                    
                 </div>
             </div>
             <div class="self-end mt-8 mx-auto">
@@ -102,7 +103,7 @@
         </div>
     </div>
     <?php
-    header("Location: localhost:8000"); // Replace "/path/to/destination" with the actual URL or path
+    header("Location: localhost:8000");
     exit;
     ?>
     @endif

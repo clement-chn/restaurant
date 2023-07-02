@@ -136,8 +136,6 @@ class AdminController extends Controller
                 $booking->delete();
             }
         }
-
-        // ancien code
         
         $reservations = Booktable::where('date', $date)->get()->toArray();
 
@@ -174,5 +172,19 @@ class AdminController extends Controller
             'nbReservations' => $nbReservations
         ]);
 
+    }
+
+    public function schedule () {
+
+        $user = Auth::user();
+        if ($user) {
+            $isUserAdmin = $user->isAdmin;
+        } else {
+            $isUserAdmin = 0;
+        }
+
+        return view ('admin/schedule', [
+            'isUserAdmin' => $isUserAdmin
+        ]);
     }
 }

@@ -14,22 +14,6 @@ while (cross) {
 
 const input = document.getElementById('clickedButton');
 
-// let clickedButtons = [];
-
-//     function toggleClickedButton(buttonIndex) {
-//         if (clickedButtons.includes(buttonIndex)) {
-//             // Remove the buttonIndex from the array
-//             clickedButtons = clickedButtons.filter(item => item !== buttonIndex);
-//         } else {
-//             // Add the buttonIndex to the array
-//             clickedButtons.push(buttonIndex);
-//         }
-
-//         // Update the hidden input field value
-//         document.getElementById('clickedButtons').value = JSON.stringify(clickedButtons);
-//     }
-
-
 crosses.forEach((cross) => {
   cross.addEventListener('click', () => {
     event.preventDefault();
@@ -73,9 +57,14 @@ crosses.forEach((cross) => {
 
 const dateBtn = document.getElementById('date-btn');
 const dateField = document.getElementById('datefield');
+const container = document.getElementById('datefield-container');
+const form = document.getElementById('form');
 
 dateField.addEventListener('change', () => {
   dateBtn.classList.remove('hidden');
+  container.classList.remove('self-center');
+  form.classList.remove('flex-col');
+  container.classList.add('basis-2/3', 'flex', 'justify-end');
 })
   
 
