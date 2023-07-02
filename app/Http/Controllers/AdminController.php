@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Schedule;
 use App\Models\Booktable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -183,8 +184,66 @@ class AdminController extends Controller
             $isUserAdmin = 0;
         }
 
+        $today = strtolower(date('l'));
+        $englishDays = ['monday', 'tuesday', 'wednesday', 'thursday','friday','saturday', 'sunday'];
+        $frenchDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi','Vendredi','Samedi', 'Dimanche'];
+
+        function translateDay($today, $englishDays, $frenchDays) {
+        
+            $index = array_search(strtolower($today), $englishDays);
+            if ($index !== false) {
+                $translatedDay = ucfirst($frenchDays[$index]);
+                return $translatedDay;
+            } else {
+                return null;
+            }
+        }
+
+        $frenchToday = translateDay($today, $englishDays, $frenchDays);
+
+        $schedule = Schedule::where('day', $frenchToday)->first();
+        
+        $isClosed = $schedule->isClosed;
+
+        // Horaires du midi
+        $noonOpeningTimeHour = substr($schedule->noonOpeningTime, 0, 2);
+        $noonOpeningTimeMinute = substr($schedule->noonOpeningTime, 3, 2);
+        $noonClosingTimeHour = substr($schedule->noonClosingTime, 0, 2);
+        $noonClosingTimeMinute = substr($schedule->noonClosingTime, 3, 2);
+
+        // Horaires du soir
+        $eveningOpeningTimeHour = substr($schedule->eveningOpeningTime, 0, 2);
+        $eveningOpeningTimeMinute = substr($schedule->eveningOpeningTime, 3, 2);
+        $eveningClosingTimeHour = substr($schedule->eveningClosingTime, 0, 2);
+        $eveningClosingTimeMinute = substr($schedule->eveningClosingTime, 3, 2);
+
+        // Valeur par défaut
+
+        $noonHours = [9, 10, 11, 12, 13, 14, 15, 16];
+        $eveningHours = [17, 18, 19, 20, 21, 22, 23];
+        $minutes = ['00', 15, 30, 45];
+
+
+        // Il me faut une variable ouverture en heure, une variable fermeture en minute X2 pour le midi ou le soir
+        // 4 POUR CHAQUE, 8 AU TOTAL
+
         return view ('admin/schedule', [
-            'isUserAdmin' => $isUserAdmin
+            'isUserAdmin' => $isUserAdmin,
+            'today' => $today,
+            'englishDays' => $englishDays,
+            'frenchDays' => $frenchDays,
+            'isClosed' => $isClosed,
+            'noonHours' => $noonHours,
+            'eveningHours' => $eveningHours,
+            'minutes' => $minutes,
+            'noonOpeningTimeHour' => $noonOpeningTimeHour,
+            'noonClosingTimeHour' => $noonClosingTimeHour,
+            'noonOpeningTimeMinute' => $noonOpeningTimeMinute,
+            'noonClosingTimeMinute' => $noonClosingTimeMinute,
+            'eveningOpeningTimeHour' => $eveningOpeningTimeHour,
+            'eveningClosingTimeHour' => $eveningClosingTimeHour,
+            'eveningOpeningTimeMinute' => $eveningOpeningTimeMinute,
+            'eveningClosingTimeMinute' => $eveningClosingTimeMinute
         ]);
     }
 }

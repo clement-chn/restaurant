@@ -21,25 +21,21 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/carte', function () {
-    return view('carte');
-});
-
 //------------CONNEXION/DECONNECTION/INSCRIPTION-----------
 
-// Show Register/ Create Form
+// Montrer le formulaire d'inscription
 Route::get('/register', [UserController::class, 'create']);
 
-// Create New User
+// Créer un nouvel utilisateur
 Route::post('/users', [UserController::class, 'store']);
 
-// Log User Out
+// Déconnecter l'utilisateur
 Route::post('/logout', [UserController::class, 'logout']);
 
-// Show Login Form
+// Montrer le formulaire de connexion
 Route::get('/login', [UserController::class, 'login']);
 
-// Login User
+// Connecter l'utilisateur
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 // -----------RESERVATION-------------------------------------
@@ -57,6 +53,7 @@ Route::get('/dashboard', [AdminController::class, 'index']);
 Route::get('/dashboard/newdate', [AdminController::class, 'newdate']);
 
 Route::post('/dashboard/delete', [AdminController::class, 'delete']);
+
 
 Route::get('/schedule', [AdminController::class, 'schedule']);
 
