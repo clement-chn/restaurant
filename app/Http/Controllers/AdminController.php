@@ -246,4 +246,184 @@ class AdminController extends Controller
             'eveningClosingTimeMinute' => $eveningClosingTimeMinute
         ]);
     }
+
+    public function newday(Request $request) {
+        
+        $user = Auth::user();
+        if ($user) {
+            $isUserAdmin = $user->isAdmin;
+        } else {
+            $isUserAdmin = 0;
+        }
+        
+        $today = $request->input('day');
+
+        $englishDays = ['monday', 'tuesday', 'wednesday', 'thursday','friday','saturday', 'sunday'];
+        $frenchDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi','Vendredi','Samedi', 'Dimanche'];
+
+        function translateDay($today, $englishDays, $frenchDays) {
+        
+            $index = array_search(strtolower($today), $englishDays);
+            if ($index !== false) {
+                $translatedDay = ucfirst($frenchDays[$index]);
+                return $translatedDay;
+            } else {
+                return null;
+            }
+        }
+
+        $frenchToday = translateDay($today, $englishDays, $frenchDays);
+
+        $schedule = Schedule::where('day', $frenchToday)->first();
+        
+        $isClosed = $schedule->isClosed;
+
+        // Horaires du midi
+        $noonOpeningTimeHour = substr($schedule->noonOpeningTime, 0, 2);
+        $noonOpeningTimeMinute = substr($schedule->noonOpeningTime, 3, 2);
+        $noonClosingTimeHour = substr($schedule->noonClosingTime, 0, 2);
+        $noonClosingTimeMinute = substr($schedule->noonClosingTime, 3, 2);
+
+        // Horaires du soir
+        $eveningOpeningTimeHour = substr($schedule->eveningOpeningTime, 0, 2);
+        $eveningOpeningTimeMinute = substr($schedule->eveningOpeningTime, 3, 2);
+        $eveningClosingTimeHour = substr($schedule->eveningClosingTime, 0, 2);
+        $eveningClosingTimeMinute = substr($schedule->eveningClosingTime, 3, 2);
+
+        // Valeur par défaut
+
+        $noonHours = [9, 10, 11, 12, 13, 14, 15, 16];
+        $eveningHours = [17, 18, 19, 20, 21, 22, 23];
+        $minutes = ['00', 15, 30, 45];
+
+        return view ('admin/schedule', [
+            'isUserAdmin' => $isUserAdmin,
+            'today' => $today,
+            'englishDays' => $englishDays,
+            'frenchDays' => $frenchDays,
+            'isClosed' => $isClosed,
+            'noonHours' => $noonHours,
+            'eveningHours' => $eveningHours,
+            'minutes' => $minutes,
+            'noonOpeningTimeHour' => $noonOpeningTimeHour,
+            'noonClosingTimeHour' => $noonClosingTimeHour,
+            'noonOpeningTimeMinute' => $noonOpeningTimeMinute,
+            'noonClosingTimeMinute' => $noonClosingTimeMinute,
+            'eveningOpeningTimeHour' => $eveningOpeningTimeHour,
+            'eveningClosingTimeHour' => $eveningClosingTimeHour,
+            'eveningOpeningTimeMinute' => $eveningOpeningTimeMinute,
+            'eveningClosingTimeMinute' => $eveningClosingTimeMinute
+        ]);
+    }
+
+    public function update(Request $request) {
+
+        $user = Auth::user();
+        if ($user) {
+            $isUserAdmin = $user->isAdmin;
+        } else {
+            $isUserAdmin = 0;
+        }
+
+        $noonOpeningTimeHour = $request->input('noon-open-hour');
+        $noonOpeningTimeMinute = $request->input('noon-open-minute');
+        $noonClosingTimeHour = $request->input('noon-close-hour');
+        $noonClosingTimeMinute = $request->input('noon-close-minute');
+
+        $eveningOpeningTimeHour = $request->input('evening-open-hour');
+        $eveningOpeningTimeMinute = $request->input('evening-open-minute');
+        $eveningClosingTimeHour = $request->input('evening-close-hour');
+        $eveningClosingTimeMinute = $request->input('evening-close-minute');
+
+        if ($request->input('closed-day') === 'on') {
+            $isClosed = 1;
+        } else {
+            $isClosed = 2;
+        }
+
+        $today = $request->input('actualday');
+        
+        $englishDays = ['monday', 'tuesday', 'wednesday', 'thursday','friday','saturday', 'sunday'];
+        $frenchDays = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi','Vendredi','Samedi', 'Dimanche'];
+        
+        function translateDay($today, $englishDays, $frenchDays) {
+            
+            $index = array_search(strtolower($today), $englishDays);
+            if ($index !== false) {
+                $translatedDay = ucfirst($frenchDays[$index]);
+                return $translatedDay;
+            } else {
+                return null;
+            }
+        }
+        
+        $frenchToday = translateDay($today, $englishDays, $frenchDays);
+        $frenchToday = strtolower($frenchToday);
+        
+        function createTime($hour, $minute) {
+            $hour = str_pad($hour, 2, '0', STR_PAD_LEFT);
+            $minute = str_pad($minute, 2, '0', STR_PAD_LEFT);
+        
+            return $hour . ':' . $minute . ':00';
+        }
+
+       $noonOpeningTime = createTime($noonOpeningTimeHour, $noonOpeningTimeMinute);
+       $noonClosingTime = createTime($noonClosingTimeHour, $noonClosingTimeMinute);
+       $eveningOpeningTime = createTime($eveningOpeningTimeHour, $eveningOpeningTimeMinute);
+       $eveningClosingTime = createTime($eveningClosingTimeHour, $eveningClosingTimeMinute);
+
+       $scheduleTable = Schedule::where('day', $frenchToday)->first();
+
+        $schedule = Schedule::where('day', $frenchToday)->first();
+            
+        if ($schedule) {
+            $schedule->noonOpeningTime = $noonOpeningTime;
+            $schedule->noonClosingTime = $noonClosingTime;
+            $schedule->eveningOpeningTime = $eveningOpeningTime;
+            $schedule->eveningClosingTime = $eveningClosingTime;
+            $schedule->isClosed = $isClosed;
+            $schedule->save();
+        }
+
+
+       // Horaires du midi
+       $noonOpeningTimeHour = substr($schedule->noonOpeningTime, 0, 2);
+       $noonOpeningTimeMinute = substr($schedule->noonOpeningTime, 3, 2);
+       $noonClosingTimeHour = substr($schedule->noonClosingTime, 0, 2);
+       $noonClosingTimeMinute = substr($schedule->noonClosingTime, 3, 2);
+
+       // Horaires du soir
+       $eveningOpeningTimeHour = substr($schedule->eveningOpeningTime, 0, 2);
+       $eveningOpeningTimeMinute = substr($schedule->eveningOpeningTime, 3, 2);
+       $eveningClosingTimeHour = substr($schedule->eveningClosingTime, 0, 2);
+       $eveningClosingTimeMinute = substr($schedule->eveningClosingTime, 3, 2);
+
+       // Valeur par défaut
+
+       $noonHours = [9, 10, 11, 12, 13, 14, 15, 16];
+       $eveningHours = [17, 18, 19, 20, 21, 22, 23];
+       $minutes = ['00', 15, 30, 45];
+
+       return view ('admin/schedule', [
+           'isUserAdmin' => $isUserAdmin,
+           'today' => $today,
+           'englishDays' => $englishDays,
+           'frenchDays' => $frenchDays,
+           'isClosed' => $isClosed,
+           'noonHours' => $noonHours,
+           'eveningHours' => $eveningHours,
+           'minutes' => $minutes,
+           'noonOpeningTimeHour' => $noonOpeningTimeHour,
+           'noonClosingTimeHour' => $noonClosingTimeHour,
+           'noonOpeningTimeMinute' => $noonOpeningTimeMinute,
+           'noonClosingTimeMinute' => $noonClosingTimeMinute,
+           'eveningOpeningTimeHour' => $eveningOpeningTimeHour,
+           'eveningClosingTimeHour' => $eveningClosingTimeHour,
+           'eveningOpeningTimeMinute' => $eveningOpeningTimeMinute,
+           'eveningClosingTimeMinute' => $eveningClosingTimeMinute
+       ]);
+
+
+
+    }
 }

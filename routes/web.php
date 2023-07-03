@@ -48,12 +48,17 @@ Route::post('/booktable', [BookTableController::class, 'store']);
 
 // -----------ADMIN-------------------------------------------
 
+// Lire et supprimer les réservations
 Route::get('/dashboard', [AdminController::class, 'index']);
 
 Route::get('/dashboard/newdate', [AdminController::class, 'newdate']);
 
 Route::post('/dashboard/delete', [AdminController::class, 'delete']);
 
-
+// Lire et modifier les horaires
 Route::get('/schedule', [AdminController::class, 'schedule']);
+
+Route::get('/schedule/newday', [AdminController::class, 'newday']);
+
+Route::post('/schedule/update', [AdminController::class, 'update']);
 

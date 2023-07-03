@@ -2,7 +2,7 @@
     @if($isUserAdmin)
 
     <main class="p-12">
-        <form action="" method="GET" class="flex flex-col">
+        <form action="/schedule/newday" method="GET" class="flex flex-col">
 
             <div class="self-center" id="dayfield-container">
                 <div class="flex flex-col w-96">
@@ -17,8 +17,10 @@
                     <button type="submit" class="bg-gold text-white rounded py-2 px-4 hover:bg-chocolate mt-9 ml-5 hidden" id="day-btn">Changer de jour</button>
                 </div>
             </div>
+        </form>
 
-
+        <form action="/schedule/update" method="POST">
+            @csrf
             <div class="flex justify-evenly p-32">
                 <div>
                     <div class="flex">
@@ -51,7 +53,7 @@
 
                 <div>
                     <div class="flex">
-                        <select class="border border-gray-200 rounded p-2 w-full mb-5 w-[4rem]" name="eveninopen-hour" id ="evening-open-hour-field">
+                        <select class="border border-gray-200 rounded p-2 w-full mb-5 w-[4rem]" name="evening-open-hour" id ="evening-open-hour-field">
                             @foreach ($eveningHours as $eveningHour)
                             <option value="{{$eveningHour}}" @if ($eveningHour == $eveningOpeningTimeHour) selected @endif>{{$eveningHour}}</option>
                             @endforeach
@@ -78,6 +80,9 @@
                     </div>
                 </div>
             </div>
+
+            <input type="hidden" name="actualday" id="actualday" value="{{$today}}">
+            
             <div class="flex justify-center" id="form-btn-container">
                 <div class="flex">
                     <p class="p-3 self-center">Le restaurant est fermé à ce jour</p>
@@ -97,7 +102,7 @@
         </div>
     </div>
     <?php
-    header("Location: localhost:8000"); // Replace "/path/to/destination" with the actual URL or path
+    header("Location: localhost:8000");
     exit;
     ?>
     @endif
