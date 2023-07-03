@@ -338,7 +338,7 @@ class AdminController extends Controller
         if ($request->input('closed-day') === 'on') {
             $isClosed = 1;
         } else {
-            $isClosed = 2;
+            $isClosed = 0;
         }
 
         $today = $request->input('actualday');
@@ -370,7 +370,17 @@ class AdminController extends Controller
        $noonOpeningTime = createTime($noonOpeningTimeHour, $noonOpeningTimeMinute);
        $noonClosingTime = createTime($noonClosingTimeHour, $noonClosingTimeMinute);
        $eveningOpeningTime = createTime($eveningOpeningTimeHour, $eveningOpeningTimeMinute);
-       $eveningClosingTime = createTime($eveningClosingTimeHour, $eveningClosingTimeMinute);
+       $eveningClosingTime = createTime($eveningClosingTimeHour,            $eveningClosingTimeMinute); 
+
+        if ($noonOpeningTime >= $noonClosingTime || $eveningOpeningTime >= $eveningClosingTime) {
+            $isOpeningSuperior = true;
+        } else {
+            $isOpeningSuperior = false;
+        }
+
+       if($isOpeningSuperior) {
+        return back()->withErrors(['schedule' => "Un horaire d'ouverture est plus grand qu'un horaire de fermeture."]);
+       }
 
        $scheduleTable = Schedule::where('day', $frenchToday)->first();
 

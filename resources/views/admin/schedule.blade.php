@@ -82,7 +82,11 @@
             </div>
 
             <input type="hidden" name="actualday" id="actualday" value="{{$today}}">
-            
+
+            @error('schedule') 
+                    <p class="text-red-500 text-xs mt-1 text-center">{{$message}}</p>
+            @enderror
+
             <div class="flex justify-center" id="form-btn-container">
                 <div class="flex">
                     <p class="p-3 self-center">Le restaurant est fermé à ce jour</p>
